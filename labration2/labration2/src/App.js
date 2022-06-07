@@ -12,14 +12,14 @@ const App = () => {
 
   const [items, setItems] = useState([])
 
-  
+
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('listItems'))
-    if(storedItems?.length) {
+    if (storedItems?.length) {
       setItems(storedItems)
     }
   }, [])
-  
+
   useEffect(() => {
     localStorage.setItem('listItems', JSON.stringify(items))
   }, [items])
@@ -32,39 +32,28 @@ const App = () => {
   const changeItem = (item, newText) => {
     item.product = newText
     setItems(state => [...state])
-    // localStorage.setItem('listItems', JSON.stringify(items))
+
   }
 
   const addItem = product => {
     setItems(state => {
       return [{ id: uuidv4(), product, completed: false }, ...state]
     })
-    // localStorage.setItem('listItems', JSON.stringify(items))
+
   }
 
   const toggleComplete = item => {
-    // const newItems = items.map(_item => {
-    //   if(_item.id === item.id) {
-    //     _item.completed = !_item.completed
-    //     return _item
-    //   }
-    //   return _item
-    // })
-
-
-    // setItems(newItems)
-
     item.completed = !item.completed
     setItems(state => {
       state.sort((a, b) => a.completed - b.completed)
       return [...state]
     })
-    // localStorage.setItem('listItems', JSON.stringify(items))
+
   }
 
   const removeItem = id => {
     setItems(state => state.filter(item => item.id !== id))
-    // localStorage.setItem('listItems', JSON.stringify(items))
+
   }
 
   return (
